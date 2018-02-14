@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Psychic Game</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+        crossorigin="anonymous">
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h1>Guess what letter I am thinking...</h1>
+                <p>press any letter to make your guess!</p>
+            </div>
+            <div class="col-12 text-center" id="game">
+
+            </div>
+        </div>
+
+
+    </div>
+
+
+    <script type="text/javascript">
+
+        // variables
+        //===================================================================================================
+
+        // create an arrary of possible lettrer choices, a thru z
+        var allLetterChoices = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
+
+        //create a counter for wins
+
+        var wins = 0;
+
+        //create a counter for losses
+
+        var losses = 0;
+
+        // create a counter for number of guesses
+
+        var guessesLeft = 9;
+
+        //create an empty arrary for letters guessed
+
+        var guessedLetters = [];
+
+    // functions 
+    //===================================================================================================
+
+        //user presses letter on keyboard to guess a letter
+
+        document.onkeyup = function(event) {
+            var userGuess = event.key;
+
+        // computer chooses random letter from the array
+
+        var randomLetter = allLetterChoices[Math.floor(Math.random() * allLetterChoices.length)];
+        console.log(randomLetter);
+        console.log(userGuess);
+
+        // take the letter entered by user and compare it to the letter the computer choose
+        
+        if (userGuess === randomLetter) {
+        wins++;
+        } else { 
+        guessesLeft--;
+        }
+        
+
+        //if the letter is correct add 1 point to the wins counter
+
+        // if the guesses counter goes down to zero and the letter is not guessed
+
+        //add a point to the losses counter
+
+        var html =
+        "<p>Wins: " + wins + "</p>" +
+        "<p>Losses: " + losses + "</p>" +
+        "<p>Guesses Left: " + guessesLeft + "</p>";
+
+        document.querySelector("#game").innerHTML = html;
+
+    };
+
+
+    
+
+    </script>
+</body>
+
+</html>
