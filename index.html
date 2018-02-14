@@ -10,12 +10,12 @@
         crossorigin="anonymous">
 </head>
 
-<body>
+<body class="bg-light">
     <div class="container">
-        <div class="row">
+        <div class="row mt-5">
             <div class="col-12 text-center">
-                <h1>Guess what letter I am thinking...</h1>
-                <p>press any letter to make your guess!</p>
+                <h1 class="mt-5">Guess what letter I am thinking...</h1>
+                <p class="lead text-secondary">Press any letter to make your guess!</p>
             </div>
             <div class="col-12 text-center" id="game">
 
@@ -50,46 +50,65 @@
 
         var guessedLetters = [];
 
-    // functions 
-    //===================================================================================================
-
-        //user presses letter on keyboard to guess a letter
-
-        document.onkeyup = function(event) {
-            var userGuess = event.key;
+        // functions 
+        //===================================================================================================
 
         // computer chooses random letter from the array
 
         var randomLetter = allLetterChoices[Math.floor(Math.random() * allLetterChoices.length)];
-        console.log(randomLetter);
-        console.log(userGuess);
 
-        // take the letter entered by user and compare it to the letter the computer choose
-        
-        if (userGuess === randomLetter) {
-        wins++;
-        } else { 
-        guessesLeft--;
-        }
-        
+        //user presses letter on keyboard to guess a letter
 
-        //if the letter is correct add 1 point to the wins counter
-
-        // if the guesses counter goes down to zero and the letter is not guessed
-
-        //add a point to the losses counter
-
-        var html =
-        "<p>Wins: " + wins + "</p>" +
-        "<p>Losses: " + losses + "</p>" +
-        "<p>Guesses Left: " + guessesLeft + "</p>";
-
-        document.querySelector("#game").innerHTML = html;
-
-    };
+        document.onkeyup = function (event) {
+            var userGuess = event.key;
 
 
-    
+            // take the letter entered by user and compare it to the letter the computer choose
+
+            if (userGuess === randomLetter) {
+                //We've won
+                wins++;
+
+                //Choose a new random letter
+                randomLetter = allLetterChoices[Math.floor(Math.random() * allLetterChoices.length)];
+                console.log("Random letter guess is:" + randomLetter);
+
+                //Reset the number of guesses
+                guessesLeft = 9;
+                guessedLetters = [];
+
+            }
+            else {
+                guessedLetters.push(userGuess);
+                guessesLeft--;
+            }
+
+            if (guessesLeft == 0) {
+                //Update the losses
+                losses++;
+
+                //Choose a new random letter
+                randomLetter = allLetterChoices[Math.floor(Math.random() * allLetterChoices.length)];
+
+                //Reset the number of guesses, same as what we started with
+                guessesLeft = 9;
+                guessedLetters = [];
+
+            }
+
+            //display the results!
+            var html =
+                "<p>Wins: " + wins + "</p>" +
+                "<p>Losses: " + losses + "</p>" +
+                "<p>Guesses Left: " + guessesLeft + "</p>" +
+                "<p>Words Guessed: " + guessedLetters + "</p>";
+
+            document.querySelector("#game").innerHTML = html;
+
+        };
+
+
+
 
     </script>
 </body>
